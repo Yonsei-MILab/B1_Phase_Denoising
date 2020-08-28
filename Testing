@@ -11,7 +11,7 @@ import numpy as np
 test = np.array(test_data['test_avg_1'])
 
 
-#trained weight upload
+#Trained weight upload
 #model.load_weights('./Phase_denoising_Weight.h5')
 
 #Result
