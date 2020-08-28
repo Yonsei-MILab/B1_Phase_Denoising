@@ -10,6 +10,6 @@ When using our code for research publications, please cite our paper.
 
 ## Usage
 
-* train.py : to train the network with in-vivo dataset.
+* train.py : Code for training the network.
 
-* test.py : to test the network with in-vivo dataset.
+* test.py : Code for testing the network.
