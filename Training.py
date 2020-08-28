@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 # Import libraries
 
 import numpy as np
@@ -18,19 +12,11 @@ from keras.layers.merge import Concatenate
 # os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"]="0"  # specify which GPU(s) to be used
 
-
-# In[ ]:
-
-
 # Training dataset
 # data = io.loadmat('training_Dataset.mat')
 
 X_train_tmp = np.array(data['Avg_1'])
 Y_train_tmp = np.array(data['Avg_8'])
-
-
-# In[ ]:
-
 
 # Data Augmentation
 ss, xx, yy, zz = X_train_tmp.shape
@@ -44,20 +30,12 @@ Y_flip2[slice,:,:,:] = np.fliplr(np.squeeze(Y_train_tmp[slice,:,:,:]))
 X_flip3 = np.fliplr(X_flip2)
 Y_flip3 = np.fliplr(Y_flip2)
 
-
-# In[ ]:
-
-
 # Composition of the training dataset
 X_train = np.zeros((ss*4,xx,yy,zz))
 Y_train = np.zeros((ss*4,xx,yy,zz))
 
 X_train[:,:,:,:] = np.concatenate((X_train_tmp,X_flip1,X_flip2,X_flip3),axis=0)
 Y_train[:,:,:,:] = np.concatenate((Y_train_tmp,Y_flip1,Y_flip2,Y_flip3),axis=0)
-
-
-# In[ ]:
-
 
 # Network
 input_shape = (192,192,2)
@@ -175,19 +153,10 @@ model_output = Conv2D(2, (1, 1),
 model = Model(model_input, model_output)
 model.summary()
 
-
-# In[ ]:
-
-
 # Parameter setting and Training
 from keras.optimizers import *
 model.compile(loss='mean_squared_error', optimizer=Adam(lr=0.0001))
 history = model.fit(X_train, Y_train, batch_size=10, epochs=150,verbose=1)
 
-
-# In[ ]:
-
-
 # Save model weights
 model.save('./Phase_denoising_Weight.h5')
-
